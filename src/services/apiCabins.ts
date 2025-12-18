@@ -11,6 +11,22 @@ export async function getCabins() {
   return data;
 }
 
+export async function createCabin(newCabin) {
+  const { data, error } = await supabase
+  .from('cabins')
+  .insert([
+    newCabin,
+  ])
+  .select();
+  
+  if (error) {
+    console.error("Error creating cabin:", error);
+    throw new Error("Could not create cabin");
+  }
+
+  return data;
+}
+
 export async function deleteCabin(cabinId: number) {
   const { data, error } = await supabase.from("cabins").delete().eq("id", cabinId);
 
