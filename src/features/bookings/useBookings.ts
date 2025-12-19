@@ -17,13 +17,15 @@ export const useBookings = () => {
     value: filterValue,
   };
 
+  const page = +(searchParams.get("page") || 1);
+
   const {
-    data: bookings,
+    data: {data: bookings, count} = {},
     isPending,
     error,
   } = useQuery({
-    queryKey: ["bookings", filter, sortBy],
-    queryFn: () => getBookings({ filter, sortBy }),
+    queryKey: ["bookings", filter, sortBy, page],
+    queryFn: () => getBookings({ filter, sortBy, page }),
   });
-  return { bookings, isPending, error };
+  return { bookings, count, isPending, error };
 };
