@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 export const useDeleteCabin = () => {
 
   const queryClient = useQueryClient();
-  const { isLoading: isDeleting, mutate: removeCabin} = useMutation({
+  const { isPending: isDeleting, mutate: removeCabin} = useMutation({
     mutationFn: deleteCabin,
     onSuccess: () => {
       // Invalidate and refetch
