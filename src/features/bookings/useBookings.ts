@@ -1,6 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getBookings } from "../../services/apiBookings";
 import { useSearchParams } from "react-router-dom";
+import { PAGE_SIZE } from "../../utils/globals";
 
 export const useBookings = () => {
 
@@ -30,8 +31,9 @@ export const useBookings = () => {
   });
 
   // Prefetching
-  const pageCount = Math.ceil((count || 0) / 20);
+  const pageCount = Math.ceil((count || 0) / PAGE_SIZE);
   if (page < pageCount) {
+    console.log("Prefetching next page", page + 1);
     queryClient.prefetchQuery({
       queryKey: ["bookings", filter, sortBy, page + 1],
       queryFn: () => getBookings({ filter, sortBy, page: page + 1 }),

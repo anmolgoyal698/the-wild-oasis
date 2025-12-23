@@ -7,3 +7,4 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 export default supabase;
 
 export const CABIN_PHOTOS_STORAGE_URL = `${supabaseUrl}/storage/v1/object/public/cabin-images/`;
+export const AVATARS_STORAGE_URL = `${supabaseUrl}/storage/v1/object/public/avatars/`;

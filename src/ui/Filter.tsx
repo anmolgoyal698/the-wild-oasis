@@ -44,6 +44,7 @@ const Filter = ({ filterField, options }) => {
   function handleClick(filter: string) {
     console.log("Selected filter:", filter);
     searchParams.set(filterField, filter);
+    searchParams.set("page", "1"); // Reset to first page on filter change
     setSearchParams(searchParams);
   }
   return (
