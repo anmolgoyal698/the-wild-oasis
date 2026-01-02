@@ -14,8 +14,7 @@ import Spinner from "../../ui/Spinner";
 import { useEffect, useState } from "react";
 import { formatCurrency } from "../../utils/helpers";
 import { useCheckin } from "./useCheckin";
-import { useSettings } from "../settings/useSettings";
-import { add } from "date-fns";
+import { useSettings } from "../settings/hooks/useSettings";
 
 const Box = styled.div`
   /* Box */

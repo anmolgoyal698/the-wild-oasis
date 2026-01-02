@@ -11,7 +11,7 @@ const FullPage = styled.div`
   background-color: var(--color-grey-50);
 `;
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   //1. Load the authenticated user
   const { isAuthenticated, isPending } = useAuth();
 

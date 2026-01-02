@@ -34,25 +34,25 @@ function SignupForm() {
       <FormRow>
         <Label htmlFor="fullName">Full name</Label>
         <Input type="text" id="fullName" disabled={isPending} {...register("fullName", { required: 'This field is required' })} />
-        {errors?.fullName?.message && <Error>{errors.fullName.message}</Error>}
+        {typeof errors?.fullName?.message === "string" && <Error>{errors.fullName.message}</Error>}
       </FormRow>
 
       <FormRow>
         <Label htmlFor="email">Email address</Label>
         <Input type="email" id="email" disabled={isPending} {...register("email", { required: 'This field is required', pattern: { value: /\S+@\S+\.\S+/, message: 'Please provide a valid email address' } })} />
-        {errors?.email?.message && <Error>{errors.email.message}</Error>}
+        {typeof errors?.email?.message === "string" && <Error>{errors.email.message}</Error>}
       </FormRow>
 
       <FormRow>
         <Label htmlFor="password">Password (min 8 characters)</Label>
         <Input type="password" id="password" disabled={isPending} {...register("password", { required: 'This field is required', minLength: { value: 8, message: 'Password must be at least 8 characters long' } })} />
-        {errors?.password?.message && <Error>{errors.password.message}</Error>}
+        {typeof errors?.password?.message === "string" && <Error>{errors.password.message}</Error>}
       </FormRow>
 
       <FormRow>
         <Label htmlFor="passwordConfirm">Repeat password</Label>
         <Input type="password" id="passwordConfirm" disabled={isPending} {...register("passwordConfirm", { required: 'This field is required', validate: value => value === getValues().password || 'Passwords do not match' })} />
-        {errors?.passwordConfirm?.message && <Error>{errors.passwordConfirm.message}</Error>}
+        {typeof errors?.passwordConfirm?.message === "string" && <Error>{errors.passwordConfirm.message}</Error>}
       </FormRow>
 
       <FormRow>

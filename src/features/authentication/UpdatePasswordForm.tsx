@@ -5,6 +5,7 @@ import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 
 import { useUpdateUser } from "./useUpdateUser";
+import styled from "styled-components";
 
 function UpdatePasswordForm() {
   const { register, handleSubmit, formState, getValues, reset } = useForm();
@@ -12,16 +13,25 @@ function UpdatePasswordForm() {
 
   const { updateUser, isUpdating } = useUpdateUser();
 
-  function onSubmit({ password }) {
-    updateUser({ password }, { onSuccess: reset });
+  function onSubmit({ password }: any) {
+    updateUser({ password }, { onSuccess: () => reset() });
   }
+
+  const Label = styled.label`
+  font-weight: 500;
+`;
+
+  const Error = styled.span`
+  font-size: 1.4rem;
+  color: var(--color-red-700);
+`;
+
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormRow
-        label="Password (min 8 characters)"
-        error={errors?.password?.message}
       >
+        <Label htmlFor="password">Password (min 8 characters)</Label>
         <Input
           type="password"
           id="password"
@@ -35,12 +45,12 @@ function UpdatePasswordForm() {
             },
           })}
         />
+        {typeof errors?.password?.message === "string" && <Error>{errors.password.message}</Error>}
       </FormRow>
 
       <FormRow
-        label="Confirm password"
-        error={errors?.passwordConfirm?.message}
       >
+        <Label htmlFor="passwordConfirm">Confirm password</Label>
         <Input
           type="password"
           autoComplete="new-password"
@@ -52,9 +62,10 @@ function UpdatePasswordForm() {
               getValues().password === value || "Passwords need to match",
           })}
         />
+        {typeof errors?.passwordConfirm?.message === "string" && <Error>{errors.passwordConfirm.message}</Error>}
       </FormRow>
       <FormRow>
-        <Button onClick={reset} type="reset" variation="secondary">
+        <Button onClick={reset} type="reset" variant="secondary">
           Cancel
         </Button>
         <Button disabled={isUpdating}>Update password</Button>

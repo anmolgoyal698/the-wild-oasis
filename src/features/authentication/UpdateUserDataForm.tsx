@@ -6,30 +6,38 @@ import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 
-import { useUser } from "./useUser";
+import { useAuth } from "./useAuth";
+import { styled } from "styled-components";
 
 function UpdateUserDataForm() {
   // We don't need the loading state, and can immediately use the user data, because we know that it has already been loaded at this point
+
   const {
     user: {
       email,
-      user_metadata: { fullName: currentFullName },
+      user_metadata: { fullName: currentFullName }
     },
-  } = useUser();
+  }: any = useAuth();
 
   const [fullName, setFullName] = useState(currentFullName);
-  const [avatar, setAvatar] = useState(null);
+  const [_, setAvatar] = useState<File | null>(null);
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
   }
 
+  const Label = styled.label`
+  font-weight: 500;
+  `;
+
   return (
     <Form onSubmit={handleSubmit}>
-      <FormRow label="Email address">
-        <Input value={email} disabled />
+      <FormRow>
+        <Label htmlFor="email">Email</Label>
+        <Input id="email"value={email} disabled />
       </FormRow>
-      <FormRow label="Full name">
+      <FormRow>
+        <Label htmlFor="fullName">Full name</Label>
         <Input
           type="text"
           value={fullName}
@@ -37,15 +45,16 @@ function UpdateUserDataForm() {
           id="fullName"
         />
       </FormRow>
-      <FormRow label="Avatar image">
+      <FormRow>
+        <Label htmlFor="avatar">Avatar image</Label>
         <FileInput
           id="avatar"
           accept="image/*"
-          onChange={(e) => setAvatar(e.target.files[0])}
+          onChange={(e) => setAvatar(e.target.files ? e.target.files[0] : null)}
         />
       </FormRow>
       <FormRow>
-        <Button type="reset" variation="secondary">
+        <Button type="reset" variant="secondary">
           Cancel
         </Button>
         <Button>Update account</Button>

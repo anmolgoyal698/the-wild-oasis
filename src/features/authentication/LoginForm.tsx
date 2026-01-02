@@ -12,7 +12,7 @@ function LoginForm() {
 
   const {isPending, login} = useLogin();
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if(!email || !password) return;
 

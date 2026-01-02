@@ -9,7 +9,7 @@ export const useDeleteBooking = () => {
     const queryClient = useQueryClient();
 
     const { isPending: isDeleting, mutate: deleteBooking } = useMutation({
-        mutationFn: () => deleteBookingApi(bookingId),
+        mutationFn: () => deleteBookingApi(+bookingId!),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['booking', bookingId] });
             queryClient.invalidateQueries({ queryKey: ['bookings'] });
