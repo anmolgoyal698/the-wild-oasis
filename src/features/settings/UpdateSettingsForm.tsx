@@ -2,9 +2,9 @@ import styled from "styled-components";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
-import { useSettings } from "./useSettings";
+import { useSettings } from "./hooks/useSettings";
 import Spinner from "../../ui/Spinner";
-import { useUpdateSetting } from "./useUpdateSetting";
+import { useUpdateSetting } from "./hooks/useUpdateSetting";
 
 const Label = styled.label`
   font-weight: 500;
@@ -19,7 +19,7 @@ const UpdateSettingsForm = () => {
     return <Spinner />;
   }
 
-  function handleUpdate(event, settingKey: string) {
+  function handleUpdate(event: React.FocusEvent<HTMLInputElement>, settingKey: string) {
     if(!event.target.value) return;
     const newValue = Number(event.target.value);
     updateSettings({ [settingKey]: newValue });

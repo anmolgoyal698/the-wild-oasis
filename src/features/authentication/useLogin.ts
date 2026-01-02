@@ -9,7 +9,7 @@ export const useLogin = () => {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
     const {isPending, error, mutate: login} = useMutation({
-        mutationFn: ({email, password}) => loginApi({email, password}),
+        mutationFn: loginApi,
         onSuccess: (data) => {
             console.log('Logged in user:', data.user);
             queryClient.setQueryData(['user'], data.user);

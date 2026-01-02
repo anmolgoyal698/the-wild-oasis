@@ -1,6 +1,12 @@
 import supabase, { AVATAR_PHOTOS_STORAGE_URL } from "./supabase";
 
-export const signUp = async ({ fullName, email, password }) => {
+interface SignUpParams {
+  fullName: string;
+  email: string;
+  password: string;
+}
+
+export const signUp = async ({ fullName, email, password }: SignUpParams) => {
   // Save the current session before signing up a new user
   const { data: savedSessionData } = await supabase.auth.getSession();
 
@@ -20,13 +26,14 @@ export const signUp = async ({ fullName, email, password }) => {
   }
 
   if (savedSessionData) {
-    await supabase.auth.setSession(savedSessionData.session);
+    await supabase.auth.setSession(savedSessionData.session!);
   }
 
   return data;
 };
 
-export const login = async ({ email, password }) => {
+export const login = async ({ email, password }: { email: string; password: string }) => {
+  console.log("Hello world");
   let { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
@@ -60,9 +67,13 @@ export const logout = async () => {
   if (error) throw new Error(error.message);
 };
 
-export async function updateCurrentUser({ password, fullName, avatar }) {
+export async function updateCurrentUser({ password, fullName, avatar }: {
+  password?: string;
+  fullName?: string;
+  avatar?: File;
+}) {
   // 1. Update password OR fullName
-  let updateData;
+  let updateData: any;
   if (password) updateData = { password };
   if (fullName) updateData = { data: { fullName } };
 

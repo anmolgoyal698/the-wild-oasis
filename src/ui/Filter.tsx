@@ -11,7 +11,7 @@ const StyledFilter = styled.div`
   gap: 0.4rem;
 `;
 
-const FilterButton = styled.button`
+const FilterButton = styled.button<{ active?: boolean }>`
   background-color: var(--color-grey-0);
   border: none;
 
@@ -35,8 +35,12 @@ const FilterButton = styled.button`
   }
 `;
 
+interface FilterProps {
+  filterField: string;
+  options: { label: string; value: string }[];
+}
 
-const Filter = ({ filterField, options }) => {
+const Filter = ({ filterField, options }: FilterProps) => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const currentFilter = searchParams.get(filterField) || options[0].value;

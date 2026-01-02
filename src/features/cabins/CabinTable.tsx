@@ -1,6 +1,6 @@
 import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
-import { useCabins } from "./useCabins";
+import { useCabins } from "./hooks/useCabins";
 import { useSearchParams } from "react-router-dom";
 import Table from "../../ui/Table";
 import Empty from "../../ui/Empty";

@@ -1,6 +1,7 @@
+import type { Cabin } from "../features/cabins/models/Cabin";
 import supabase, { CABIN_PHOTOS_STORAGE_URL } from "./supabase";
 
-const uploadImage = async (image) => {
+const uploadImage = async (image: File) => {
   const imageName = `${Math.random()}-${image.name}`.replaceAll("/", "");
   const imagePath = `${CABIN_PHOTOS_STORAGE_URL}${imageName}`;
 
@@ -17,7 +18,7 @@ const uploadImage = async (image) => {
   return imagePath;
 };
 
-const deleteImage = async (imageName) => {
+const deleteImage = async (imageName: string) => {
   const { error: imageError } = await supabase.storage
     .from("cabin-images")
     .remove([imageName]);
@@ -40,7 +41,7 @@ export const getCabins = async () => {
   return data;
 };
 
-export const createCabin = async (newCabinData) => {
+export const createCabin = async (newCabinData: any) => {
   let imagePath = newCabinData.image;
 
   // 1. Upload image to storage bucket if image is not a string url
@@ -63,7 +64,7 @@ export const createCabin = async (newCabinData) => {
   return data;
 };
 
-export const updateCabin = async (updatedCabinData) => {
+export const updateCabin = async (updatedCabinData: Cabin) => {
   let { id, image, ...cabinData } = updatedCabinData;
   let newImageUploaded = false;
   // Upload image if the value is not a string url
@@ -91,7 +92,7 @@ export const updateCabin = async (updatedCabinData) => {
   return data;
 };
 
-export const deleteCabin = async ({ cabinId, imageName }) => {
+export const deleteCabin = async ({ cabinId, imageName }: { cabinId: number; imageName: string }) => {
   const { data, error } = await supabase
     .from("cabins")
     .delete()
